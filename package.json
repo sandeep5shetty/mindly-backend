@@ -1,0 +1,40 @@
+{
+  "name": "mindly-backend",
+  "version": "1.0.0",
+  "description": "A memory app just like second-brain to your life",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "nodemon",
+    "start": "npm run build && node dist/index.js"
+  },
+  "keywords": [
+    "Brainly",
+    "Mindly",
+    "Second-Brain",
+    "Memory",
+    "Store",
+    "Links"
+  ],
+  "author": "Sandeep Shetty",
+  "license": "ISC",
+  "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.2",
+    "typescript": "^5.9.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2"
+  }
+}
