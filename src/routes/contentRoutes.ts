@@ -55,8 +55,6 @@ contentRouter.put(
 );
 
 contentRouter.get("/", authMiddleware, async (req: Request, res: Response) => {
-  console.log("User wants to see all his contents");
-
   try {
     const response = await ContentModel.find({ userId: req.userId });
 
