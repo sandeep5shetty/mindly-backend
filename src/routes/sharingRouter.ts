@@ -12,13 +12,11 @@ sharingRouter.post("/", authMiddleware, async (req, res) => {
       userId: req.userId,
     });
 
-    console.log("Contents to share : ______", contents);
-    const sharableLink = `http://localhost:3000/api/v1/contents/?id=${req.userId}`;
+    const sharableLink = `${process.env.DOMAIN_BASE_URL}/api/v1/contents/?id=${req.userId}`;
 
     res.status(201).json({
       message: "Sharable link generated successfully",
       link: sharableLink,
-      contents,
     });
   } catch (error) {
     console.log("Errror occured : ", error);
