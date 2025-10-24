@@ -29,6 +29,7 @@ export const authMiddleware = async (
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     if (decoded) {
       const user = await UserModel.findOne({ username: decoded });
+
       //@ts-ignore
       req.userId = user?._id;
       next();

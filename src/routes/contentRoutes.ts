@@ -38,15 +38,14 @@ contentRouter.put(
         title: parsedData.data.type,
         //@ts-ignore
         tags: parsedData.data.tags,
-        //@ts-ignore
-        userId: new mongoose.Types.ObjectId(req.userId),
+        userId: req.userId,
       });
       res.status(201).json({
         message: "Content created successfully",
         data: response,
       });
     } catch (error: any) {
-      console.log(error.message);
+      console.log("evesdgvrsd", error.message);
       return res
         .status(500)
         .json({ msg: "Error while creating content in DB" });

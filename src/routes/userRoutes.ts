@@ -11,10 +11,8 @@ export const userRouter = Router();
 userRouter.post("/signup", async (req, res) => {
   //zod input validation
   const requiredBody = z.object({
-    username: z.string().min(3, "ithna small").max(25),
+    username: z.string().min(3, "Username is too small").max(25),
     password: z.string().min(3).max(35),
-    firstName: z.string().min(3).max(35),
-    lastName: z.string().min(3).max(35).optional(),
   });
 
   const parsedData = requiredBody.safeParse(req.body);
@@ -25,8 +23,6 @@ userRouter.post("/signup", async (req, res) => {
       const response = await UserModel.create({
         username: parsedData.data.username,
         password: hashedPass,
-        firstName: parsedData.data.firstName,
-        lastName: parsedData.data.lastName,
       });
     } catch (error) {
       res.status(402).json({ errorMsg: "Username already exists in the DB" });
@@ -40,7 +36,7 @@ userRouter.post("/signup", async (req, res) => {
 userRouter.post("/signin", async (req, res) => {
   //zod input validation
   const requiredBody = z.object({
-    username: z.string().min(3, "ithna small").max(25),
+    username: z.string().min(3, "Username is too small").max(25),
     password: z.string().min(3).max(35),
   });
 
@@ -68,8 +64,8 @@ userRouter.post("/signin", async (req, res) => {
       } else {
         res.status(403).json({ errorMsg: "User doesn't exists" });
       }
-    } catch (error) {
-      res.status(402).json({ errorMsg: "Username already exists in the DB" });
+    } catch (error: any) {
+      res.status(402).json({ errorMsg: error.message });
     }
   } else {
     res.status(404).json({ msg: "Inputs are wrong" });
