@@ -25,7 +25,10 @@ sharedContentsRouter.get("/", async (req, res) => {
           .json({ message: "Link does not reference a user" });
       }
 
-      const response = await ContentModel.find({ userId });
+      const response = await ContentModel.find({ userId }).populate(
+        "tags",
+        "title"
+      );
 
       if (response) {
         res.status(200).json({

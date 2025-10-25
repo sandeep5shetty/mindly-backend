@@ -13,6 +13,12 @@ app.use("/api/v1/content", contentRouter);
 app.use("/api/v1/contents", sharedContentsRouter);
 app.use("/api/v1/share", sharingRouter);
 
-app.listen(3002, () => {
-  console.log("Server is up AND it is running at PORT 3002");
-});
+// For local development
+if (process.env.NODE_ENV !== "production") {
+  app.listen(3002, () => {
+    console.log("Server is up AND it is running at PORT 3002");
+  });
+}
+
+// Export for Vercel
+export default app;
