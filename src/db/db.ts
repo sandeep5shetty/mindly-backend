@@ -24,7 +24,15 @@ const TagSchema = new Schema(
 );
 export const TagModel = mongoose.model("tags", TagSchema);
 
-const contentTypes = ["facebook", "youtube", "linkedin", "insta", "x", "other"];
+const contentTypes = [
+  "facebook",
+  "youtube",
+  "linkedin",
+  "insta",
+  "x",
+  "threads",
+  "other",
+];
 
 const ContentSchema = new Schema(
   {

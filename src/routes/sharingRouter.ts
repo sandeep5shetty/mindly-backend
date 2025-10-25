@@ -7,8 +7,6 @@ import { link } from "fs";
 export const sharingRouter = Router();
 
 sharingRouter.post("/", authMiddleware, async (req, res) => {
-  console.log("User whose data to be shared: ", req.userId);
-
   const toShare = req.body.share;
   let hash;
   let isAlreadyHashed;

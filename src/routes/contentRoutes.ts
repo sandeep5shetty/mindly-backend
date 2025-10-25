@@ -20,6 +20,7 @@ contentRouter.put(
       link: z.string(),
       type: z.string(),
       title: z.string(),
+      description: z.string(),
       tags: z.any().array().optional(),
     });
     const parsedData = requiredBody.safeParse(req.body);
@@ -35,11 +36,16 @@ contentRouter.put(
       const response = await ContentModel.create({
         link: parsedData.data.link,
         type: parsedData.data.type,
-        title: parsedData.data.type,
+        title: parsedData.data.title,
+        description: parsedData.data.description,
         //@ts-ignore
         tags: parsedData.data.tags,
         userId: req.userId,
       });
+
+      // Populate tags in the response to match the format from GET route
+      await response.populate("tags", "title");
+
       res.status(201).json({
         message: "Content created successfully",
         data: response,
@@ -55,7 +61,10 @@ contentRouter.put(
 
 contentRouter.get("/", authMiddleware, async (req: Request, res: Response) => {
   try {
-    const response = await ContentModel.find({ userId: req.userId });
+    const response = await ContentModel.find({ userId: req.userId }).populate(
+      "tags",
+      "title"
+    );
 
     if (response) {
       res.status(200).json({
