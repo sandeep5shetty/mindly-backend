@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { UserModel } from "../db/db.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 export const userRouter = Router();
 
@@ -69,5 +70,22 @@ userRouter.post("/signin", async (req, res) => {
     }
   } else {
     res.status(404).json({ msg: "Inputs are wrong" });
+  }
+});
+
+// Get current user info
+userRouter.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.userId);
+    if (user) {
+      res.status(200).json({
+        username: user.username,
+        id: user._id,
+      });
+    } else {
+      res.status(404).json({ errorMsg: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(500).json({ errorMsg: error.message });
   }
 });
